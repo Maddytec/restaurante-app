@@ -1,0 +1,47 @@
+<div class="box box-solid">
+  <div class="box-header">
+    <i class="fa fa-shopping-cart"></i>
+
+    <h3 class="box-title">Carrinho</h3>
+  </div>
+  <div class="box-body">
+    
+    <div *ngIf="!itens().length">
+      <p class="text-center">
+        Seu carrinho está vazio!
+      </p>
+    </div>
+
+    
+    <div class="table-responsive" *ngIf="itens().length">
+      <table class="table">
+        <tbody>
+          <tr *ngFor="let item of itens()">
+            <th style="width:60%">({{item.quantidade}} x) {{item.item.name}}</th>
+
+            <td class="text-right">{{item.valor() | currency: 'BRL' : true}}</td>
+            <td class="text-right">
+              <a (click)="removeItem(item)" class="btn btn-sm danger"><i class="fa fa-remove"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <th>Frete:</th>
+
+            <td class="text-right">R$ 8,00</td>
+          </tr>
+          <tr>
+            <th>Total:</th>
+
+            <td class="text-right">{{total() | currency: 'BRL':true}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="box-footer" *ngIf="itens().length">
+    <div class="pull-right">
+      <button (click)="limpar()" type="button" class="btn btn-danger"><i class="fa fa-trash"></i> Limpar</button>
+      <a [routerLink]="['/compra']" class="btn btn-success"><i class="fa fa-credit-card"></i> Fechar Pedido</a>
+    </div>
+  </div>
+</div>
