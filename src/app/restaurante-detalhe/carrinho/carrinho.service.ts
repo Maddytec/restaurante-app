@@ -27,4 +27,15 @@ export class CarrinhoService {
         .map(item => item.valor())
         .reduce((prev, value) => prev + value, 0);
     }
+
+    adicionarQuantidadeItem(item: Carrinho) {
+        item.quantidade = item.quantidade + 1;
+    }
+
+    subtrairQuantidadeItem(item: Carrinho) {
+        item.quantidade = item.quantidade - 1;
+        if(item.quantidade === 0){
+            this.removeItem(item);
+        }
+    }
 }

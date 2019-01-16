@@ -1,3 +1,4 @@
+import { CompraService } from './compra/compra.service';
 import { RestaurantesService } from './restaurantes/restaurantes.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
@@ -22,6 +23,7 @@ import { CarrinhoService } from './restaurante-detalhe/carrinho/carrinho.service
 import { CompraComponent } from './compra/compra.component';
 import { InputComponent } from './compartilhada/input/input.component';
 import { RadioComponent } from './compartilhada/radio/radio.component';
+import { ItemCompraComponent } from './compra/item-compra/item-compra.component';
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { RadioComponent } from './compartilhada/radio/radio.component';
     AvaliacaoComponent,
     CompraComponent,
     InputComponent,
-    RadioComponent
+    RadioComponent,
+    ItemCompraComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,7 @@ import { RadioComponent } from './compartilhada/radio/radio.component';
     FormsModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [RestaurantesService, CarrinhoService, {provide: LOCALE_ID, useValue: 'pt-BR'}],
+  providers: [RestaurantesService, CarrinhoService, CompraService, {provide: LOCALE_ID, useValue: 'pt-BR'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
