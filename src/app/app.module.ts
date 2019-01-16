@@ -20,6 +20,8 @@ import { ItemComponent } from './restaurante-detalhe/item/item.component';
 import { AvaliacaoComponent } from './restaurante-detalhe/avaliacao/avaliacao.component';
 import { CarrinhoService } from './restaurante-detalhe/carrinho/carrinho.service';
 import { CompraComponent } from './compra/compra.component';
+import { InputComponent } from './compartilhada/input/input.component';
+import { RadioComponent } from './compartilhada/radio/radio.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { CompraComponent } from './compra/compra.component';
     CarrinhoComponent,
     ItemComponent,
     AvaliacaoComponent,
-    CompraComponent
+    CompraComponent,
+    InputComponent,
+    RadioComponent
   ],
   imports: [
     BrowserModule,
