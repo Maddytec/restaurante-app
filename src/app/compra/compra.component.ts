@@ -9,6 +9,8 @@ import { Carrinho } from 'app/restaurante-detalhe/carrinho/carrinho.model';
 })
 export class CompraComponent implements OnInit {
 
+  frete: number = 8;
+
   opcoesPagamento: RadioOption[] = [
     { label: 'Dinheiro', valor: 'DINHEIRO' },
     { label: 'Cartão de Crédito', valor: 'CARTAO_CREDITO' },
@@ -17,6 +19,10 @@ export class CompraComponent implements OnInit {
   constructor(private compraService: CompraService) { }
 
   ngOnInit() {
+  }
+
+  valorItens(): number {
+    return this.compraService.valorItens();
   }
 
   itens(): Carrinho[] {
@@ -34,5 +40,5 @@ export class CompraComponent implements OnInit {
 
   excluir(item: Carrinho) {
     this.compraService.excluir(item);
-}
+  }
 }
