@@ -75,8 +75,9 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <button class="btn btn-success pull-right" [disabled]="!form.valid || itens().length === 0"><i class="fa fa-credit-card"></i> Concluir
-          Pedido
+        <button class="btn btn-success pull-right" (click)="verificaPedido(form.value)" 
+        [disabled]="!form.valid || itens().length === 0">
+        <i class="fa fa-credit-card"></i> Concluir Pedido
         </button>
       </div>
     </div>

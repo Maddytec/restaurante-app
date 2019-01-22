@@ -2,6 +2,7 @@ import { CompraService } from './compra.service';
 import { Component, OnInit } from '@angular/core';
 import { RadioOption } from 'app/compartilhada/radio/radio-option.model';
 import { Carrinho } from 'app/restaurante-detalhe/carrinho/carrinho.model';
+import { Pedido, ItemPedido } from './compra.model';
 
 @Component({
   selector: 'mt-compra',
@@ -41,4 +42,15 @@ export class CompraComponent implements OnInit {
   excluir(item: Carrinho) {
     this.compraService.excluir(item);
   }
+
+  verificaPedido(pedido: Pedido){
+    pedido.itensCompra = this.itens().map((item: Carrinho) => new ItemPedido(item.quantidade, item.item.id));
+      this.compraService.verificaPedido(pedido)
+      .subscribe((orderId: string ) => { 
+        console.log(`Compra concluída: ${orderId}`) ;
+        this.compraService.limpar();
+      });
+      console.log(pedido);
+    }
+
 }
