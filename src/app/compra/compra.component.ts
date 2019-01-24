@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RadioOption } from 'app/compartilhada/radio/radio-option.model';
 import { Carrinho } from 'app/restaurante-detalhe/carrinho/carrinho.model';
 import { Pedido, ItemPedido } from './compra.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'mt-compra',
@@ -17,7 +18,7 @@ export class CompraComponent implements OnInit {
     { label: 'Cartão de Crédito', valor: 'CARTAO_CREDITO' },
     { label: 'Cartão de Débito', valor: 'CARTAO_DEBITO' }
   ];
-  constructor(private compraService: CompraService) { }
+  constructor(private compraService: CompraService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -47,7 +48,7 @@ export class CompraComponent implements OnInit {
     pedido.itensCompra = this.itens().map((item: Carrinho) => new ItemPedido(item.quantidade, item.item.id));
       this.compraService.verificaPedido(pedido)
       .subscribe((orderId: string ) => { 
-        console.log(`Compra concluída: ${orderId}`) ;
+        this.router.navigate(['/resultado']);
         this.compraService.limpar();
       });
       console.log(pedido);

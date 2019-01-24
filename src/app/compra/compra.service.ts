@@ -41,7 +41,8 @@ export class CompraService {
         return this.http.post(`${MEAT_API}/orders`, 
                                 JSON.stringify(pedido),
                                 new RequestOptions({headers: headers}))
-                                .map(response => response.json());
+                                .map(response => response.json())
+                                .map( pedido => pedido.id);
     }
 
 }

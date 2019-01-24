@@ -1,6 +1,6 @@
+import { ResultadoComponent } from './compra/resultado/resultado.component';
 import { CompraComponent } from './compra/compra.component';
 import { AvaliacaoComponent } from './restaurante-detalhe/avaliacao/avaliacao.component';
-import { Component } from '@angular/core';
 import { RestaurantesComponent } from './restaurantes/restaurantes.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
@@ -21,5 +21,6 @@ export const ROUTES: Routes = [
         ]
     },
     { path: 'compra', component: CompraComponent },
-    { path: 'about', component: AboutComponent }
+    { path: 'about', component: AboutComponent },
+    { path: 'resultado', component: ResultadoComponent }
 ]

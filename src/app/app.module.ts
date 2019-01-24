@@ -25,6 +25,8 @@ import { InputComponent } from './compartilhada/input/input.component';
 import { RadioComponent } from './compartilhada/radio/radio.component';
 import { ItemCompraComponent } from './compra/item-compra/item-compra.component';
 import { FreteComponent } from './compra/frete/frete.component';
+import { ResultadoComponent } from './compra/resultado/resultado.component';
+import { RanqueComponent } from './compartilhada/ranque/ranque.component';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { FreteComponent } from './compra/frete/frete.component';
     InputComponent,
     RadioComponent,
     ItemCompraComponent,
-    FreteComponent
+    FreteComponent,
+    ResultadoComponent,
+    RanqueComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,14 @@
+<section class="content-header">
+</section>
+
+<section class="content">
+  <div class="jumbotron">
+    <h2>Pedido Conluído</h2>
+    <p>Seu pedido foi recebido pelo restaurante. Prepare a mesa que a comida está chegando!</p>
+    <p><b>Avalie</b> sua experiência:</p>
+    <p>
+      <mt-ranque (rated)="rated = true"></mt-ranque>
+    </p>
+    <p [hidden]="!rated"> Obrigado por nos avaliar!</p>
+  </div>
+</section>
