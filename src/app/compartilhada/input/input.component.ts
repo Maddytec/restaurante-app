@@ -1,16 +1,19 @@
 import { Component, OnInit, Input, ContentChild, AfterContentInit } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { NgModel, FormControlName } from '@angular/forms';
 
 @Component({
   selector: 'mt-input-container',
   templateUrl: './input.component.html'
 })
 export class InputComponent implements OnInit, AfterContentInit {
-  
+
   @Input() errorMessage: string;
   @Input() label: string;
+
   input: any;
+
   @ContentChild(NgModel) model: NgModel;
+  @ContentChild(FormControlName) control: FormControlName;
 
 
   constructor() { }
@@ -19,17 +22,17 @@ export class InputComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit(): void {
-    this.input = this.model;
-    if(this.input === undefined){
-      throw new Error('Diretiva ngModel obrigatória!');
+    this.input = this.model || this.control;
+    if (this.input === undefined) {
+      throw new Error('Diretiva ngModel or controlName is necessary!');
     }
   }
 
-  hasSuccess():boolean{
+  hasSuccess(): boolean {
     return this.input.valid && this.input.dirty;
   }
 
-  hasError():boolean{
+  hasError(): boolean {
     return this.input.invalid && this.input.dirty;
   }
 }

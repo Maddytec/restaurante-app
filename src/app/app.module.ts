@@ -3,7 +3,7 @@ import { RestaurantesService } from './restaurantes/restaurantes.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 
@@ -54,9 +54,11 @@ import { RanqueComponent } from './compartilhada/ranque/ranque.component';
     BrowserModule,
     HttpModule,
     FormsModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES),
+    ReactiveFormsModule
   ],
   providers: [RestaurantesService, CarrinhoService, CompraService, {provide: LOCALE_ID, useValue: 'pt-BR'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+  
