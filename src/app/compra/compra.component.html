@@ -14,9 +14,14 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 col-sm-9">
           <p class="lead">Seus dados</p>
         </div>
+
+        <div class="col-xs-12 col-sm-3">
+            <span *ngIf="pedidoForm.hasError('emailsNotMath')" class="help-block pull-right has-error-block"><i class="fa fa-remove"></i> Emails não são iguais</span>
+        </div>
+
         <div class="col-sm-4 col-xs-12">
           <mt-input-container errormessage="Campo obrigatório e com 5 caracteres" label="Nome">
             <input class="form-control" formControlName="name" placeholder="Nome">

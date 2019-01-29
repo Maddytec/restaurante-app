@@ -4,8 +4,7 @@ import { RadioOption } from 'app/compartilhada/radio/radio-option.model';
 import { Carrinho } from 'app/restaurante-detalhe/carrinho/carrinho.model';
 import { Pedido, ItemPedido } from './compra.model';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EMAIL_VALIDATOR, EmailValidator } from '@angular/forms/src/directives/validators';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'mt-compra',
@@ -19,7 +18,7 @@ export class CompraComponent implements OnInit {
 
   pedidoForm: FormGroup;
 
-  frete: number = 8;
+  frete: Number = 8;
 
   opcoesPagamento: RadioOption[] = [
     { label: 'Dinheiro', valor: 'DINHEIRO' },
@@ -27,21 +26,33 @@ export class CompraComponent implements OnInit {
     { label: 'Cartão de Débito', valor: 'CARTAO_DEBITO' }
   ];
   constructor(private compraService: CompraService,
-              private router: Router,
-              private formBuilder: FormBuilder) { }
+    private router: Router,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-   this.pedidoForm = this.formBuilder.group({
-     name: this.formBuilder.control('', [ Validators.required, Validators.minLength(5)]),
-     email: this.formBuilder.control('', [ Validators.required, Validators.minLength(5), Validators.pattern(this.emailPattern)]),
-     emailConfirmation: this.formBuilder.control('', [Validators.required, Validators.minLength(5), Validators.pattern(this.emailPattern)]),
-     address: this.formBuilder.control('', [ Validators.required, Validators.minLength(5)]),
-     number: this.formBuilder.control('', [ Validators.required, Validators.minLength(1), Validators.pattern(this.numberPattern)]),
-     optionlAddress: this.formBuilder.control(''),
-     paymentOption: this.formBuilder.control('', Validators.required )
-   });
+    this.pedidoForm = this.formBuilder.group({
+      name: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
+      email: this.formBuilder.control('', [Validators.required, Validators.minLength(5), Validators.pattern(this.emailPattern)]),
+      emailConfirmation: this.formBuilder.control(
+        '', [Validators.required, Validators.minLength(5), Validators.pattern(this.emailPattern)]),
+      address: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
+      number: this.formBuilder.control('', [Validators.required, Validators.minLength(1), Validators.pattern(this.numberPattern)]),
+      optionlAddress: this.formBuilder.control(''),
+      paymentOption: this.formBuilder.control('', Validators.required)
+    }, { validator: this.equalsTo });
   }
 
+  equalsTo(group: AbstractControl): { [key: string]: boolean } {
+    const email = group.get('email');
+    const emailConfirmation = group.get('emailConfirmation');
+    if (!email || !emailConfirmation) {
+      return undefined;
+    }
+    if (email.value !== emailConfirmation.value) {
+      return { emailsNotMath: true };
+    }
+    return undefined;
+  }
 
   valorItens(): number {
     return this.compraService.valorItens();
