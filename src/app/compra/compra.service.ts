@@ -1,5 +1,5 @@
 import { MEAT_API } from './../app.api';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { CarrinhoService } from './../restaurante-detalhe/carrinho/carrinho.service';
 import { Injectable } from '@angular/core';
 import { Carrinho } from 'app/restaurante-detalhe/carrinho/carrinho.model';
@@ -13,7 +13,7 @@ export class CompraService {
     return this.carrinhoService.total();
   }
 
-    constructor(private carrinhoService: CarrinhoService, private http: Http) { }
+    constructor(private carrinhoService: CarrinhoService, private http: HttpClient) { }
 
     carrinho(): Carrinho[] {
         return this.carrinhoService.itens;
@@ -36,13 +36,8 @@ export class CompraService {
     }
 
     verificaPedido(pedido: Pedido): Observable<String>{
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json' )
-        return this.http.post(`${MEAT_API}/orders`, 
-                                JSON.stringify(pedido),
-                                new RequestOptions({headers: headers}))
-                                .map(response => response.json())
-                                .map( pedido => pedido.id);
+       return this.http.post<Pedido>(`${MEAT_API}/orders`, pedido)
+        .map(pedido => pedido.id);                              
     }
 
 }
