@@ -6,11 +6,11 @@ class Pedido {
         public formaPagamento: string,
         public itensCompra: ItemPedido[] = [],
         public id: String
-        ){}
+        ) { }
 }
 
 class ItemPedido {
-    constructor(public quantidade: number, public menuId: string ){}
+    constructor(public quantidade: number, public menuId: string ) {}
 }
 
-export {Pedido, ItemPedido}
+export { Pedido, ItemPedido }

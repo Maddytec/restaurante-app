@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CompraService {
-  
+
     valorItens(): number {
     return this.carrinhoService.total();
   }
@@ -31,13 +31,12 @@ export class CompraService {
         this.carrinhoService.removeItem(item);
     }
 
-    limpar(){
+    limpar() {
       this.carrinhoService.limpar();
     }
 
-    verificaPedido(pedido: Pedido): Observable<String>{
+    verificaPedido(pedido: Pedido): Observable<String> {
        return this.http.post<Pedido>(`${MEAT_API}/orders`, pedido)
-        .map(pedido => pedido.id);                              
+        .map( pedidos => { return pedido.id; });
     }
-
 }
