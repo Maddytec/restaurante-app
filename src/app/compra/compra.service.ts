@@ -1,5 +1,6 @@
+import { LoginService } from './../security/login/login.service';
 import { MEAT_API } from './../app.api';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CarrinhoService } from './../restaurante-detalhe/carrinho/carrinho.service';
 import { Injectable } from '@angular/core';
 import { Carrinho } from 'app/restaurante-detalhe/carrinho/carrinho.model';
@@ -13,7 +14,9 @@ export class CompraService {
     return this.carrinhoService.total();
   }
 
-    constructor(private carrinhoService: CarrinhoService, private http: HttpClient) { }
+    constructor(private carrinhoService: CarrinhoService,
+                private http: HttpClient,
+                private loginService: LoginService ) { }
 
     carrinho(): Carrinho[] {
         return this.carrinhoService.itens;
@@ -36,7 +39,11 @@ export class CompraService {
     }
 
     verificaPedido(pedido: Pedido): Observable<String> {
-       return this.http.post<Pedido>(`${MEAT_API}/orders`, pedido)
-        .map( pedidos => { return pedido.id; });
+       let headers = new HttpHeaders();
+       if (this.loginService.isLoggedIn()) {
+            headers = headers.set('Authorization', `Bearer ${this.loginService.user.accessToken}`);
+       }
+        return this.http.post<Pedido>(`${MEAT_API}/orders`, pedido, {headers: headers})
+        .map( pedidos => pedido.id );
     }
 }

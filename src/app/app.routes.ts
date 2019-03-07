@@ -1,3 +1,7 @@
+import { AboutModule } from './about/about.module';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { LoggedInGuard } from './security/loggedin.guard';
+import { LoginComponent } from './security/login/login.component';
 import { ResultadoComponent } from './compra/resultado/resultado.component';
 import { CompraComponent } from './compra/compra.component';
 import { AvaliacaoComponent } from './restaurante-detalhe/avaliacao/avaliacao.component';
@@ -10,8 +14,9 @@ import { MenuComponent } from './restaurante-detalhe/menu/menu.component';
 
 export const ROUTES: Routes = [
     { path: '', component: HomeComponent },
+    { path: 'login/:to', component: LoginComponent },
+    { path: 'login', component: LoginComponent },
     { path: 'home', component: HomeComponent },
-    { path: 'restaurantes', component: RestaurantesComponent },
     {
         path: 'restaurantes/:id', component: RestauranteDetalheComponent,
         children: [
@@ -20,7 +25,9 @@ export const ROUTES: Routes = [
             { path: 'avaliacao', component: AvaliacaoComponent }
         ]
     },
-    { path: 'compra', component: CompraComponent },
-    { path: 'about', component: AboutComponent },
-    { path: 'resultado', component: ResultadoComponent }
+    { path: 'restaurantes', component: RestaurantesComponent },
+    { path: 'compra', loadChildren: './compra/compra.module#CompraModule', canLoad: [LoggedInGuard] },
+    { path: 'resultado', component: ResultadoComponent },
+    { path: 'about', loadChildren: './about/about.module#AboutModule' },
+    { path: '**', component: NotFoundComponent }
 ]

@@ -1,10 +1,13 @@
+import { SharedModule } from './compartilhada/compartilhada.module';
+import { LoggedInGuard } from './security/loggedin.guard';
+import { LoginService } from './security/login/login.service';
 import { CompraService } from './compra/compra.service';
 import { RestaurantesService } from './restaurantes/restaurantes.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, PreloadAllModules } from '@angular/router';
 
 
 import { AppComponent } from './app.component';
@@ -21,12 +24,12 @@ import { ItemComponent } from './restaurante-detalhe/item/item.component';
 import { AvaliacaoComponent } from './restaurante-detalhe/avaliacao/avaliacao.component';
 import { CarrinhoService } from './restaurante-detalhe/carrinho/carrinho.service';
 import { CompraComponent } from './compra/compra.component';
-import { InputComponent } from './compartilhada/input/input.component';
-import { RadioComponent } from './compartilhada/radio/radio.component';
 import { ItemCompraComponent } from './compra/item-compra/item-compra.component';
 import { FreteComponent } from './compra/frete/frete.component';
 import { ResultadoComponent } from './compra/resultado/resultado.component';
-import { RanqueComponent } from './compartilhada/ranque/ranque.component';
+import { LoginComponent } from './security/login/login.component';
+import { NotificationService } from './compartilhada/messages/notification.service';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -34,30 +37,28 @@ import { RanqueComponent } from './compartilhada/ranque/ranque.component';
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    AboutComponent,
     RestaurantesComponent,
     RestauranteComponent,
     RestauranteDetalheComponent,
     MenuComponent,
+    AboutComponent,
     CarrinhoComponent,
     ItemComponent,
     AvaliacaoComponent,
-    CompraComponent,
-    InputComponent,
-    RadioComponent,
-    ItemCompraComponent,
-    FreteComponent,
     ResultadoComponent,
-    RanqueComponent
+    LoginComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(ROUTES),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule.forRoot(),
+    RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules })
   ],
-  providers: [RestaurantesService, CarrinhoService, CompraService, {provide: LOCALE_ID, useValue: 'pt-BR'}],
+  providers: [RestaurantesService, LoginService, CarrinhoService, NotificationService,
+               CompraService, {provide: LOCALE_ID, useValue: 'pt-BR'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
