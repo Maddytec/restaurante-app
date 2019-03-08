@@ -8,7 +8,7 @@ import { AvaliacaoComponent } from './restaurante-detalhe/avaliacao/avaliacao.co
 import { RestaurantesComponent } from './restaurantes/restaurantes.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
-import { Routes } from '@angular/router';
+import { Routes, CanActivate } from '@angular/router';
 import { RestauranteDetalheComponent } from './restaurante-detalhe/restaurante-detalhe.component';
 import { MenuComponent } from './restaurante-detalhe/menu/menu.component';
 
@@ -26,7 +26,7 @@ export const ROUTES: Routes = [
         ]
     },
     { path: 'restaurantes', component: RestaurantesComponent },
-    { path: 'compra', loadChildren: './compra/compra.module#CompraModule', canLoad: [LoggedInGuard] },
+    { path: 'compra', loadChildren: './compra/compra.module#CompraModule', canLoad: [LoggedInGuard], canActivate: [LoggedInGuard] },
     { path: 'resultado', component: ResultadoComponent },
     { path: 'about', loadChildren: './about/about.module#AboutModule' },
     { path: '**', component: NotFoundComponent }
