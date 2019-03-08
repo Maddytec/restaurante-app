@@ -30,6 +30,7 @@ import { ResultadoComponent } from './compra/resultado/resultado.component';
 import { LoginComponent } from './security/login/login.component';
 import { NotificationService } from './compartilhada/messages/notification.service';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { UserDetailComponent } from './header/user-detail/user-detail.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AvaliacaoComponent,
     ResultadoComponent,
     LoginComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,
