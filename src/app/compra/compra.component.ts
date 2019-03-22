@@ -6,6 +6,8 @@ import { Pedido, ItemPedido } from './compra.model';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
+import 'rxjs/add/operator/do';
+
 @Component({
   selector: 'mt-compra',
   templateUrl: './compra.component.html'
@@ -19,6 +21,8 @@ export class CompraComponent implements OnInit {
   pedidoForm: FormGroup;
 
   frete: Number = 8;
+
+  pedidoId: string;
 
   opcoesPagamento: RadioOption[] = [
     { label: 'Dinheiro', valor: 'DINHEIRO' },
@@ -75,14 +79,20 @@ export class CompraComponent implements OnInit {
     this.compraService.excluir(item);
   }
 
+  isCompraFinalizada(): boolean {
+    return this.pedidoId !== undefined;
+  }
+
   verificaPedido(pedido: Pedido) {
-    pedido.itensCompra = this.itens().map((item: Carrinho) => new ItemPedido(item.quantidade, item.item.id));
-    this.compraService.verificaPedido(pedido)
-      .subscribe((orderId: string) => {
+    pedido.itensCompra = this.itens().map((item: Carrinho) => new ItemPedido(item.quantidade.valueOf(), item.item.id));
+
+      this.compraService.verificaPedido(pedido).do((pedidoId: string) => { this.pedidoId = pedidoId; })
+      .subscribe((pedidoId: string) => {
         this.router.navigate(['/resultado']);
         this.compraService.limpar();
-      });
-    console.log(pedido);
+      }
+      )
+      console.log(pedido);
   }
 
 }

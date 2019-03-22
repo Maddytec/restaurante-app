@@ -18,15 +18,15 @@ export class ItemCompraComponent implements OnInit {
   ngOnInit() {
   }
 
-  emitAdicionarQuantidadeItem(item: Carrinho){
+  emitAdicionarQuantidadeItem(item: Carrinho) {
     this.adicionarQuantidadeItem.emit(item);
   }
 
-  emitSubtrairQuantidadeItem(item: Carrinho){
+  emitSubtrairQuantidadeItem(item: Carrinho) {
     this.subtrairQuantidadeItem.emit(item);
   }
 
-  emitExcluir(item: Carrinho){
+  emitExcluir(item: Carrinho) {
     this.excluir.emit(item);
   }
 

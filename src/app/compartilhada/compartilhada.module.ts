@@ -1,3 +1,4 @@
+import { LeaveComprasGuard } from './../compra/leave-compras.guard';
 import { NotificationService } from './messages/notification.service';
 import { CarrinhoService } from './../restaurante-detalhe/carrinho/carrinho.service';
 import { LoggedInGuard } from './../security/loggedin.guard';
@@ -44,7 +45,9 @@ export class SharedModule {
         CompraService,
         NotificationService,
         LoginService,
-        LoggedInGuard]
+        LoggedInGuard,
+        LeaveComprasGuard
+      ]
     }
   }
 }

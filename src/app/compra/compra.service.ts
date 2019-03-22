@@ -44,6 +44,6 @@ export class CompraService {
             headers = headers.set('Authorization', `Bearer ${this.loginService.user.accessToken}`);
        }
         return this.http.post<Pedido>(`${MEAT_API}/orders`, pedido, {headers: headers})
-        .map( pedidos => pedido.id );
+        .map( orders => pedido.pedidoId );
     }
 }

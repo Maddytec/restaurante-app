@@ -1,3 +1,4 @@
+import { LeaveComprasGuard } from './leave-compras.guard';
 import { SharedModule } from './../compartilhada/compartilhada.module';
 import { FreteComponent } from './frete/frete.component';
 import { ItemCompraComponent } from './item-compra/item-compra.component';
@@ -6,7 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 const ROUTES: Routes = [
-  { path: '', component: CompraComponent }
+  { path: '', component: CompraComponent, canDeactivate: [LeaveComprasGuard] }
 ]
 
 @NgModule({

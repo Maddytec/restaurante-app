@@ -16,9 +16,7 @@ export const ROUTES: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login/:to', component: LoginComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'home', component: HomeComponent },
-    {
-        path: 'restaurantes/:id', component: RestauranteDetalheComponent,
+    { path: 'restaurantes/:id', component: RestauranteDetalheComponent,
         children: [
             { path: '', redirectTo: 'menu', pathMatch: 'full' },
             { path: 'menu', component: MenuComponent },
@@ -26,6 +24,7 @@ export const ROUTES: Routes = [
         ]
     },
     { path: 'restaurantes', component: RestaurantesComponent },
+    { path: 'home', component: HomeComponent },
     { path: 'compra', loadChildren: './compra/compra.module#CompraModule', canLoad: [LoggedInGuard], canActivate: [LoggedInGuard] },
     { path: 'resultado', component: ResultadoComponent },
     { path: 'about', loadChildren: './about/about.module#AboutModule' },
