@@ -1,3 +1,4 @@
+import { AuthInterceptor } from './../security/auth.interceptor';
 import { LeaveComprasGuard } from './../compra/leave-compras.guard';
 import { NotificationService } from './messages/notification.service';
 import { CarrinhoService } from './../restaurante-detalhe/carrinho/carrinho.service';
@@ -12,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RestaurantesService } from 'app/restaurantes/restaurantes.service';
 import { CompraService } from 'app/compra/compra.service';
 import { SnackbarComponent } from './messages/snackbar/snackbar.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ export class SharedModule {
         NotificationService,
         LoginService,
         LoggedInGuard,
-        LeaveComprasGuard
+        LeaveComprasGuard,
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
       ]
     }
   }

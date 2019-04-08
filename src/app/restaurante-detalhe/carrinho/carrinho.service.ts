@@ -22,7 +22,7 @@ export class CarrinhoService {
         this.itens = [];
     }
 
-    total(): number {
+    total(): Number {
         return this.itens
         .map(item => item.valor())
         .reduce((prev, value) => prev + value, 0);
@@ -34,7 +34,7 @@ export class CarrinhoService {
 
     subtrairQuantidadeItem(item: Carrinho) {
         item.quantidade = item.quantidade - 1;
-        if(item.quantidade === 0){
+        if (item.quantidade === 0) {
             this.removeItem(item);
         }
     }

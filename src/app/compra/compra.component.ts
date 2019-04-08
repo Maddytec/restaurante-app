@@ -58,7 +58,7 @@ export class CompraComponent implements OnInit {
     return undefined;
   }
 
-  valorItens(): number {
+  valorItens(): Number {
     return this.compraService.valorItens();
   }
 
