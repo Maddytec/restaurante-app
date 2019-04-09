@@ -1,10 +1,11 @@
+import { AplicationErrorHandler } from './app.errror-handler';
 import { SharedModule } from './compartilhada/compartilhada.module';
 import { LoggedInGuard } from './security/loggedin.guard';
 import { LoginService } from './security/login/login.service';
 import { CompraService } from './compra/compra.service';
 import { RestaurantesService } from './restaurantes/restaurantes.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, PreloadAllModules } from '@angular/router';
@@ -31,6 +32,7 @@ import { LoginComponent } from './security/login/login.component';
 import { NotificationService } from './compartilhada/messages/notification.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UserDetailComponent } from './header/user-detail/user-detail.component';
+import { errorHandler } from '@angular/platform-browser/src/browser';
 
 
 @NgModule({
@@ -59,8 +61,10 @@ import { UserDetailComponent } from './header/user-detail/user-detail.component'
     SharedModule.forRoot(),
     RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules })
   ],
-  providers: [RestaurantesService, LoginService, CarrinhoService, NotificationService,
-               CompraService, {provide: LOCALE_ID, useValue: 'pt-BR'}],
+  providers: [RestaurantesService, LoginService, CarrinhoService, NotificationService, CompraService,
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: ErrorHandler, useClass: AplicationErrorHandler }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

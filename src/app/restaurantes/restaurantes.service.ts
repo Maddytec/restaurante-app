@@ -1,4 +1,3 @@
-import { ErrorHandler } from './../app.errror-handler';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { MEAT_API } from './../app.api';
 import { Observable } from 'rxjs/Observable';
@@ -13,13 +12,13 @@ export class RestaurantesService {
 
   constructor(private http: HttpClient) { }
 
-restaurantesSearch(search?: string):Observable<Restaurante[]>{
-  let params: HttpParams = undefined;
-  if(search){
-    params = new HttpParams().append('q',search);
+  restaurantesSearch(search?: string): Observable<Restaurante[]> {
+    let params: HttpParams = undefined;
+    if (search) {
+      params = new HttpParams().append('q', search);
+    }
+    return this.http.get<Restaurante[]>(`${MEAT_API}/restaurants`, { params: params });
   }
-  return this.http.get<Restaurante[]>(`${MEAT_API}/restaurants`, {params: params});
-}
 
   restaurantes(): Observable<Restaurante[]> {
     return this.http.get<Restaurante[]>(`${MEAT_API}/restaurants`)
