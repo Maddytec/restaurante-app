@@ -4,7 +4,7 @@ import { RadioOption } from 'app/compartilhada/radio/radio-option.model';
 import { Carrinho } from 'app/restaurante-detalhe/carrinho/carrinho.model';
 import { Pedido, ItemPedido } from './compra.model';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 
 import 'rxjs/add/operator/do';
 
@@ -34,8 +34,10 @@ export class CompraComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.pedidoForm = this.formBuilder.group({
-      name: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
+    this.pedidoForm = new FormGroup({
+      name: new FormControl('', {
+       validators: [Validators.required, Validators.minLength(5)],
+      }),
       email: this.formBuilder.control('', [Validators.required, Validators.minLength(5), Validators.pattern(this.emailPattern)]),
       emailConfirmation: this.formBuilder.control(
         '', [Validators.required, Validators.minLength(5), Validators.pattern(this.emailPattern)]),
@@ -43,7 +45,7 @@ export class CompraComponent implements OnInit {
       number: this.formBuilder.control('', [Validators.required, Validators.minLength(1), Validators.pattern(this.numberPattern)]),
       optionlAddress: this.formBuilder.control(''),
       paymentOption: this.formBuilder.control('', Validators.required)
-    }, { validator: this.equalsTo });
+    }, { validators: [this.equalsTo], updateOn: 'blur' });
   }
 
   equalsTo(group: AbstractControl): { [key: string]: boolean } {

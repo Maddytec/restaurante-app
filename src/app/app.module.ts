@@ -1,6 +1,5 @@
 import { AplicationErrorHandler } from './app.errror-handler';
 import { SharedModule } from './compartilhada/compartilhada.module';
-import { LoggedInGuard } from './security/loggedin.guard';
 import { LoginService } from './security/login/login.service';
 import { CompraService } from './compra/compra.service';
 import { RestaurantesService } from './restaurantes/restaurantes.service';
@@ -9,7 +8,10 @@ import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, PreloadAllModules } from '@angular/router';
+import { LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
+import locatePt from '@angular/common/locales/pt';
 
+registerLocaleData(locatePt, 'pt');
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -24,15 +26,12 @@ import { CarrinhoComponent } from './restaurante-detalhe/carrinho/carrinho.compo
 import { ItemComponent } from './restaurante-detalhe/item/item.component';
 import { AvaliacaoComponent } from './restaurante-detalhe/avaliacao/avaliacao.component';
 import { CarrinhoService } from './restaurante-detalhe/carrinho/carrinho.service';
-import { CompraComponent } from './compra/compra.component';
-import { ItemCompraComponent } from './compra/item-compra/item-compra.component';
-import { FreteComponent } from './compra/frete/frete.component';
 import { ResultadoComponent } from './compra/resultado/resultado.component';
 import { LoginComponent } from './security/login/login.component';
 import { NotificationService } from './compartilhada/messages/notification.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UserDetailComponent } from './header/user-detail/user-detail.component';
-import { errorHandler } from '@angular/platform-browser/src/browser';
+
 
 
 @NgModule({
@@ -56,13 +55,12 @@ import { errorHandler } from '@angular/platform-browser/src/browser';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule,
     ReactiveFormsModule,
     SharedModule.forRoot(),
     RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules })
   ],
   providers: [RestaurantesService, LoginService, CarrinhoService, NotificationService, CompraService,
-    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: LOCALE_ID, useValue: 'pt' },
     { provide: ErrorHandler, useClass: AplicationErrorHandler }
   ],
   bootstrap: [AppComponent]

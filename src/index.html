@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,11 +14,19 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script type="text/javascript" src="https://unpkg.com/zone.js"></script>
+  <script>
+    if (global === undefined) {
+      var global = window;
+    }
+  </script>
+
 </head>
 
 <body class="hold-transition skin-red layout-top-nav">
 
-    <mt-app>Loading...</mt-app>
+  <mt-app>Loading...</mt-app>
 
 </body>
+
 </html>

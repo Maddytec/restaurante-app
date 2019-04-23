@@ -47,7 +47,7 @@ export class CarrinhoComponent implements OnInit {
     this.carrinhoService.addItem(item);
   }
 
-  total(): number {
+  total(): Number {
     return this.carrinhoService.total();
   }
 
