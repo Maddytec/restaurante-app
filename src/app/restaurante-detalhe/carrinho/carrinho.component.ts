@@ -6,6 +6,7 @@ import { CarrinhoService } from './carrinho.service';
 @Component({
   selector: 'mt-carrinho',
   templateUrl: './carrinho.component.html',
+  preserveWhitespaces: true,
   animations: [
     trigger('row', [
       state('ready', style({opacity: 1})),
