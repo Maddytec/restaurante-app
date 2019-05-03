@@ -5,8 +5,7 @@ import { Carrinho } from 'app/restaurante-detalhe/carrinho/carrinho.model';
 import { Pedido, ItemPedido } from './compra.model';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
-
-import 'rxjs/add/operator/do';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'mt-compra',
@@ -29,28 +28,27 @@ export class CompraComponent implements OnInit {
     { label: 'Cartão de Crédito', valor: 'CARTAO_CREDITO' },
     { label: 'Cartão de Débito', valor: 'CARTAO_DEBITO' }
   ];
-  constructor(private compraService: CompraService,
+
+    constructor(private compraService: CompraService,
     private router: Router,
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.pedidoForm = new FormGroup({
-      name: new FormControl('', {
-       validators: [Validators.required, Validators.minLength(5)],
-      }),
-      email: this.formBuilder.control('', [Validators.required, Validators.minLength(5), Validators.pattern(this.emailPattern)]),
-      emailConfirmation: this.formBuilder.control(
-        '', [Validators.required, Validators.minLength(5), Validators.pattern(this.emailPattern)]),
-      address: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
-      number: this.formBuilder.control('', [Validators.required, Validators.minLength(1), Validators.pattern(this.numberPattern)]),
-      optionlAddress: this.formBuilder.control(''),
-      paymentOption: this.formBuilder.control('', Validators.required)
-    }, { validators: [this.equalsTo], updateOn: 'blur' });
+      name: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      email: new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern(this.emailPattern)]),
+ emailConfirmation: new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern(this.emailPattern)]),
+      address: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      number: new FormControl('', [Validators.required, Validators.minLength(1), Validators.pattern(this.numberPattern)]),
+      optionlAddress: new FormControl(''),
+      paymentOption: new FormControl('', Validators.required)
+    }, { validators: [this.equalsTo] })
   }
 
-  equalsTo(group: AbstractControl): { [key: string]: boolean } {
-    const email = group.get('email');
-    const emailConfirmation = group.get('emailConfirmation');
+
+equalsTo(group: AbstractControl): { [key: string]: boolean } {
+    const email = group.get('email')
+    const emailConfirmation = group.get('emailConfirmation')
     if (!email || !emailConfirmation) {
       return undefined;
     }
@@ -88,13 +86,15 @@ export class CompraComponent implements OnInit {
   verificaPedido(pedido: Pedido) {
     pedido.itensCompra = this.itens().map((item: Carrinho) => new ItemPedido(item.quantidade.valueOf(), item.item.id));
 
-      this.compraService.verificaPedido(pedido).do((pedidoId: string) => { this.pedidoId = pedidoId; })
+    this.compraService.verificaPedido(pedido)
+    .pipe(tap((pedidoId: string) => {
+      this.pedidoId = pedidoId;
+    }))
       .subscribe((pedidoId: string) => {
         this.router.navigate(['/resultado']);
         this.compraService.limpar();
       }
       )
-      console.log(pedido);
   }
 
 }

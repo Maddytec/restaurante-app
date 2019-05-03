@@ -6,9 +6,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultadoComponent implements OnInit {
 
+  rated: boolean
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  rate() {
+    this.rated = true
   }
 
 }

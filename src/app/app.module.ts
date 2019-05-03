@@ -6,9 +6,9 @@ import { RestaurantesService } from './restaurantes/restaurantes.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, PreloadAllModules } from '@angular/router';
-import { LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import locatePt from '@angular/common/locales/pt';
 
 registerLocaleData(locatePt, 'pt');
@@ -16,7 +16,6 @@ registerLocaleData(locatePt, 'pt');
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component'
 import { ROUTES } from './app.routes';
 import { RestaurantesComponent } from './restaurantes/restaurantes.component';
 import { RestauranteComponent } from './restaurantes/restaurante/restaurante.component';
@@ -43,7 +42,6 @@ import { UserDetailComponent } from './header/user-detail/user-detail.component'
     RestauranteComponent,
     RestauranteDetalheComponent,
     MenuComponent,
-    AboutComponent,
     CarrinhoComponent,
     ItemComponent,
     AvaliacaoComponent,

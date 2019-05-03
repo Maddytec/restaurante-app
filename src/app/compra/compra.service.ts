@@ -4,7 +4,8 @@ import { CarrinhoService } from './../restaurante-detalhe/carrinho/carrinho.serv
 import { Injectable } from '@angular/core';
 import { Carrinho } from 'app/restaurante-detalhe/carrinho/carrinho.model';
 import { Pedido } from './compra.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class CompraService {
@@ -38,6 +39,8 @@ export class CompraService {
 
     verificaPedido(pedido: Pedido): Observable<String> {
        return this.http.post<Pedido>(`${MEAT_API}/orders`, pedido)
-        .map( orders => pedido.pedidoId );
+        .pipe(
+            map( orders => pedido.pedidoId )
+            )
     }
 }
